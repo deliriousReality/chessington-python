@@ -39,8 +39,12 @@ class Pawn(Piece):
         moves = []
         if self.player == Player.WHITE:
             moves.append(Square.at((current_square.row)+1,current_square.col))
+            if current_square.row == 1:
+                moves.append(Square.at((current_square.row)+2,current_square.col))
         else:
-            moves.append(Square.at((current_square.row)-1,current_square.col))         
+            moves.append(Square.at((current_square.row)-1,current_square.col))
+            if current_square.row == 6:
+                moves.append(Square.at((current_square.row)-2,current_square.col))         
         return moves
 
 
