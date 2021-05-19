@@ -38,13 +38,26 @@ class Pawn(Piece):
         current_square = board.find_piece(self)
         moves = []
         if self.player == Player.WHITE:
-            moves.append(Square.at((current_square.row)+1,current_square.col))
+            candidate_move = Square.at((current_square.row)+1,current_square.col)
+            if board.get_piece(candidate_move) is None:
+                moves.append(candidate_move)
             if current_square.row == 1:
-                moves.append(Square.at((current_square.row)+2,current_square.col))
+                special_case_candidate_move = Square.at((current_square.row)+2,current_square.col)
+                if board.get_piece(special_case_candidate_move) is None and board.get_piece(candidate_move) is None:
+                    moves.append(special_case_candidate_move)
         else:
-            moves.append(Square.at((current_square.row)-1,current_square.col))
+            candidate_move = Square.at((current_square.row)-1,current_square.col)
+            if board.get_piece(candidate_move) is None:
+                moves.append(candidate_move)
             if current_square.row == 6:
-                moves.append(Square.at((current_square.row)-2,current_square.col))         
+                special_case_candidate_move = Square.at((current_square.row)-2,current_square.col)
+                if board.get_piece(special_case_candidate_move) is None and board.get_piece(candidate_move) is None:
+                    moves.append(special_case_candidate_move)         
+        return moves
+
+    def square_occupied(candidate_move,moves,board):
+        if board.get_piece(candidate_move) is None:
+                moves.append(candidate_move)
         return moves
 
 
